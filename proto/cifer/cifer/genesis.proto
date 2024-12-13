@@ -1,17 +1,20 @@
 syntax = "proto3";
+
 package cifer.cifer;
 
 import "amino/amino.proto";
 import "gogoproto/gogo.proto";
 import "cifer/cifer/params.proto";
+import "cifer/cifer/mintdata.proto";
 
 option go_package = "cifer/x/cifer/types";
 
 // GenesisState defines the cifer module's genesis state.
 message GenesisState {
+  
   // params defines all the parameters of the module.
-  Params params = 1 [
-    (gogoproto.nullable) = false,
-    (amino.dont_omitempty) = true
-  ];
+           Params   params        = 1 [(gogoproto.nullable) = false, (amino.dont_omitempty) = true];
+  repeated Mintdata mintdataList  = 2 [(gogoproto.nullable) = false] ;
+           uint64   mintdataCount = 3;
 }
+

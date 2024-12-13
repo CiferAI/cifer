@@ -1,0 +1,12 @@
+syntax = "proto3";
+package cifer.cifer;
+
+option go_package = "cifer/x/cifer/types";
+
+message Mintdata {
+  uint64 id = 1;
+  string creatorAddress = 2; 
+  string metadata = 3; 
+  string amount = 4; 
+  string creator = 5;
+}

@@ -19,7 +19,9 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Query_Params_FullMethodName = "/cifer.cifer.Query/Params"
+	Query_Params_FullMethodName      = "/cifer.cifer.Query/Params"
+	Query_Mintdata_FullMethodName    = "/cifer.cifer.Query/Mintdata"
+	Query_MintdataAll_FullMethodName = "/cifer.cifer.Query/MintdataAll"
 )
 
 // QueryClient is the client API for Query service.
@@ -28,6 +30,9 @@ const (
 type QueryClient interface {
 	// Parameters queries the parameters of the module.
 	Params(ctx context.Context, in *QueryParamsRequest, opts ...grpc.CallOption) (*QueryParamsResponse, error)
+	// Queries a list of Mintdata items.
+	Mintdata(ctx context.Context, in *QueryGetMintdataRequest, opts ...grpc.CallOption) (*QueryGetMintdataResponse, error)
+	MintdataAll(ctx context.Context, in *QueryAllMintdataRequest, opts ...grpc.CallOption) (*QueryAllMintdataResponse, error)
 }
 
 type queryClient struct {
@@ -47,12 +52,33 @@ func (c *queryClient) Params(ctx context.Context, in *QueryParamsRequest, opts .
 	return out, nil
 }
 
+func (c *queryClient) Mintdata(ctx context.Context, in *QueryGetMintdataRequest, opts ...grpc.CallOption) (*QueryGetMintdataResponse, error) {
+	out := new(QueryGetMintdataResponse)
+	err := c.cc.Invoke(ctx, Query_Mintdata_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *queryClient) MintdataAll(ctx context.Context, in *QueryAllMintdataRequest, opts ...grpc.CallOption) (*QueryAllMintdataResponse, error) {
+	out := new(QueryAllMintdataResponse)
+	err := c.cc.Invoke(ctx, Query_MintdataAll_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // QueryServer is the server API for Query service.
 // All implementations must embed UnimplementedQueryServer
 // for forward compatibility
 type QueryServer interface {
 	// Parameters queries the parameters of the module.
 	Params(context.Context, *QueryParamsRequest) (*QueryParamsResponse, error)
+	// Queries a list of Mintdata items.
+	Mintdata(context.Context, *QueryGetMintdataRequest) (*QueryGetMintdataResponse, error)
+	MintdataAll(context.Context, *QueryAllMintdataRequest) (*QueryAllMintdataResponse, error)
 	mustEmbedUnimplementedQueryServer()
 }
 
@@ -62,6 +88,12 @@ type UnimplementedQueryServer struct {
 
 func (UnimplementedQueryServer) Params(context.Context, *QueryParamsRequest) (*QueryParamsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Params not implemented")
+}
+func (UnimplementedQueryServer) Mintdata(context.Context, *QueryGetMintdataRequest) (*QueryGetMintdataResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Mintdata not implemented")
+}
+func (UnimplementedQueryServer) MintdataAll(context.Context, *QueryAllMintdataRequest) (*QueryAllMintdataResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method MintdataAll not implemented")
 }
 func (UnimplementedQueryServer) mustEmbedUnimplementedQueryServer() {}
 
@@ -94,6 +126,42 @@ func _Query_Params_Handler(srv interface{}, ctx context.Context, dec func(interf
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Query_Mintdata_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryGetMintdataRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).Mintdata(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Query_Mintdata_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).Mintdata(ctx, req.(*QueryGetMintdataRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Query_MintdataAll_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryAllMintdataRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).MintdataAll(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Query_MintdataAll_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).MintdataAll(ctx, req.(*QueryAllMintdataRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Query_ServiceDesc is the grpc.ServiceDesc for Query service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -104,6 +172,14 @@ var Query_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Params",
 			Handler:    _Query_Params_Handler,
+		},
+		{
+			MethodName: "Mintdata",
+			Handler:    _Query_Mintdata_Handler,
+		},
+		{
+			MethodName: "MintdataAll",
+			Handler:    _Query_MintdataAll_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

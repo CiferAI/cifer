@@ -19,7 +19,10 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Msg_UpdateParams_FullMethodName = "/cifer.cifer.Msg/UpdateParams"
+	Msg_UpdateParams_FullMethodName   = "/cifer.cifer.Msg/UpdateParams"
+	Msg_CreateMintdata_FullMethodName = "/cifer.cifer.Msg/CreateMintdata"
+	Msg_UpdateMintdata_FullMethodName = "/cifer.cifer.Msg/UpdateMintdata"
+	Msg_DeleteMintdata_FullMethodName = "/cifer.cifer.Msg/DeleteMintdata"
 )
 
 // MsgClient is the client API for Msg service.
@@ -29,6 +32,9 @@ type MsgClient interface {
 	// UpdateParams defines a (governance) operation for updating the module
 	// parameters. The authority defaults to the x/gov module account.
 	UpdateParams(ctx context.Context, in *MsgUpdateParams, opts ...grpc.CallOption) (*MsgUpdateParamsResponse, error)
+	CreateMintdata(ctx context.Context, in *MsgCreateMintdata, opts ...grpc.CallOption) (*MsgCreateMintdataResponse, error)
+	UpdateMintdata(ctx context.Context, in *MsgUpdateMintdata, opts ...grpc.CallOption) (*MsgUpdateMintdataResponse, error)
+	DeleteMintdata(ctx context.Context, in *MsgDeleteMintdata, opts ...grpc.CallOption) (*MsgDeleteMintdataResponse, error)
 }
 
 type msgClient struct {
@@ -48,6 +54,33 @@ func (c *msgClient) UpdateParams(ctx context.Context, in *MsgUpdateParams, opts 
 	return out, nil
 }
 
+func (c *msgClient) CreateMintdata(ctx context.Context, in *MsgCreateMintdata, opts ...grpc.CallOption) (*MsgCreateMintdataResponse, error) {
+	out := new(MsgCreateMintdataResponse)
+	err := c.cc.Invoke(ctx, Msg_CreateMintdata_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *msgClient) UpdateMintdata(ctx context.Context, in *MsgUpdateMintdata, opts ...grpc.CallOption) (*MsgUpdateMintdataResponse, error) {
+	out := new(MsgUpdateMintdataResponse)
+	err := c.cc.Invoke(ctx, Msg_UpdateMintdata_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *msgClient) DeleteMintdata(ctx context.Context, in *MsgDeleteMintdata, opts ...grpc.CallOption) (*MsgDeleteMintdataResponse, error) {
+	out := new(MsgDeleteMintdataResponse)
+	err := c.cc.Invoke(ctx, Msg_DeleteMintdata_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // MsgServer is the server API for Msg service.
 // All implementations must embed UnimplementedMsgServer
 // for forward compatibility
@@ -55,6 +88,9 @@ type MsgServer interface {
 	// UpdateParams defines a (governance) operation for updating the module
 	// parameters. The authority defaults to the x/gov module account.
 	UpdateParams(context.Context, *MsgUpdateParams) (*MsgUpdateParamsResponse, error)
+	CreateMintdata(context.Context, *MsgCreateMintdata) (*MsgCreateMintdataResponse, error)
+	UpdateMintdata(context.Context, *MsgUpdateMintdata) (*MsgUpdateMintdataResponse, error)
+	DeleteMintdata(context.Context, *MsgDeleteMintdata) (*MsgDeleteMintdataResponse, error)
 	mustEmbedUnimplementedMsgServer()
 }
 
@@ -64,6 +100,15 @@ type UnimplementedMsgServer struct {
 
 func (UnimplementedMsgServer) UpdateParams(context.Context, *MsgUpdateParams) (*MsgUpdateParamsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateParams not implemented")
+}
+func (UnimplementedMsgServer) CreateMintdata(context.Context, *MsgCreateMintdata) (*MsgCreateMintdataResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateMintdata not implemented")
+}
+func (UnimplementedMsgServer) UpdateMintdata(context.Context, *MsgUpdateMintdata) (*MsgUpdateMintdataResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateMintdata not implemented")
+}
+func (UnimplementedMsgServer) DeleteMintdata(context.Context, *MsgDeleteMintdata) (*MsgDeleteMintdataResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteMintdata not implemented")
 }
 func (UnimplementedMsgServer) mustEmbedUnimplementedMsgServer() {}
 
@@ -96,6 +141,60 @@ func _Msg_UpdateParams_Handler(srv interface{}, ctx context.Context, dec func(in
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Msg_CreateMintdata_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgCreateMintdata)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).CreateMintdata(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Msg_CreateMintdata_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).CreateMintdata(ctx, req.(*MsgCreateMintdata))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Msg_UpdateMintdata_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgUpdateMintdata)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).UpdateMintdata(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Msg_UpdateMintdata_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).UpdateMintdata(ctx, req.(*MsgUpdateMintdata))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Msg_DeleteMintdata_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgDeleteMintdata)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).DeleteMintdata(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Msg_DeleteMintdata_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).DeleteMintdata(ctx, req.(*MsgDeleteMintdata))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Msg_ServiceDesc is the grpc.ServiceDesc for Msg service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -106,6 +205,18 @@ var Msg_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UpdateParams",
 			Handler:    _Msg_UpdateParams_Handler,
+		},
+		{
+			MethodName: "CreateMintdata",
+			Handler:    _Msg_CreateMintdata_Handler,
+		},
+		{
+			MethodName: "UpdateMintdata",
+			Handler:    _Msg_UpdateMintdata_Handler,
+		},
+		{
+			MethodName: "DeleteMintdata",
+			Handler:    _Msg_DeleteMintdata_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

@@ -88,7 +88,6 @@ var (
 		paramstypes.ModuleName,
 		upgradetypes.ModuleName,
 		vestingtypes.ModuleName,
-		circuittypes.ModuleName,
 		nft.ModuleName,
 		group.ModuleName,
 		consensustypes.ModuleName,
