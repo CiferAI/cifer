@@ -72,8 +72,11 @@ import (
 	"google.golang.org/protobuf/types/known/durationpb"
 
 	cifermodulev1 "cifer/api/cifer/cifer/module"
+	engravemodulev1 "cifer/api/cifer/engrave/module"
 	_ "cifer/x/cifer/module" // import for side-effects
 	cifermoduletypes "cifer/x/cifer/types"
+	_ "cifer/x/engrave/module" // import for side-effects
+	engravemoduletypes "cifer/x/engrave/types"
 	// this line is used by starport scaffolding # stargate/app/moduleImport
 )
 
@@ -112,6 +115,7 @@ var (
 		circuittypes.ModuleName,
 		// chain modules
 		cifermoduletypes.ModuleName,
+		engravemoduletypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/initGenesis
 	}
 
@@ -137,6 +141,7 @@ var (
 		ibcfeetypes.ModuleName,
 		// chain modules
 		cifermoduletypes.ModuleName,
+		engravemoduletypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/beginBlockers
 	}
 
@@ -156,6 +161,7 @@ var (
 		ibcfeetypes.ModuleName,
 		// chain modules
 		cifermoduletypes.ModuleName,
+		engravemoduletypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/endBlockers
 	}
 
@@ -308,6 +314,10 @@ var (
 			{
 				Name:   cifermoduletypes.ModuleName,
 				Config: appconfig.WrapAny(&cifermodulev1.Module{}),
+			},
+			{
+				Name:   engravemoduletypes.ModuleName,
+				Config: appconfig.WrapAny(&engravemodulev1.Module{}),
 			},
 			// this line is used by starport scaffolding # stargate/app/moduleConfig
 		},

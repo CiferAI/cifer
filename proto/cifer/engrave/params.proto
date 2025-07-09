@@ -1,0 +1,15 @@
+syntax = "proto3";
+package cifer.engrave;
+
+import "amino/amino.proto";
+import "gogoproto/gogo.proto";
+
+option go_package = "cifer/x/engrave/types";
+
+// Params defines the parameters for the module.
+message Params {
+  option (amino.name) = "cifer/x/engrave/Params";
+  option (gogoproto.equal) = true;
+
+  
+}

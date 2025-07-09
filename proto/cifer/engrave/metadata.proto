@@ -1,0 +1,21 @@
+syntax = "proto3";
+package cifer.engrave;
+
+option go_package = "cifer/x/engrave/types";
+
+message Metadata {
+  
+  string creatorWallet = 1; 
+  string generatedVia = 2; 
+  string modelUsed = 3; 
+  string assetId = 4; 
+  string assetType = 5; 
+  string promptAttribution = 6; 
+  string ipOwnerName = 7; 
+  string ipOwnerWallet = 8; 
+  string usageRights = 9; 
+  string licenseExpiryDate = 10; 
+  string createdOn = 11; 
+  string onChainRecord = 12; 
+  int32 blockHeight = 13; 
+}

@@ -54,6 +54,7 @@ import (
 	ibckeeper "github.com/cosmos/ibc-go/v8/modules/core/keeper"
 
 	cifermodulekeeper "cifer/x/cifer/keeper"
+	engravemodulekeeper "cifer/x/engrave/keeper"
 	// this line is used by starport scaffolding # stargate/app/moduleImport
 
 	"cifer/docs"
@@ -116,7 +117,8 @@ type App struct {
 	ScopedICAControllerKeeper capabilitykeeper.ScopedKeeper
 	ScopedICAHostKeeper       capabilitykeeper.ScopedKeeper
 
-	CiferKeeper cifermodulekeeper.Keeper
+	CiferKeeper   cifermodulekeeper.Keeper
+	EngraveKeeper engravemodulekeeper.Keeper
 	// this line is used by starport scaffolding # stargate/app/keeperDeclaration
 
 	// simulation manager
@@ -255,6 +257,7 @@ func New(
 		&app.ConsensusParamsKeeper,
 		&app.CircuitBreakerKeeper,
 		&app.CiferKeeper,
+		&app.EngraveKeeper,
 		// this line is used by starport scaffolding # stargate/app/keeperDefinition
 	); err != nil {
 		panic(err)

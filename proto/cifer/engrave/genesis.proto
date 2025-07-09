@@ -1,0 +1,17 @@
+syntax = "proto3";
+package cifer.engrave;
+
+import "amino/amino.proto";
+import "gogoproto/gogo.proto";
+import "cifer/engrave/params.proto";
+
+option go_package = "cifer/x/engrave/types";
+
+// GenesisState defines the engrave module's genesis state.
+message GenesisState {
+  // params defines all the parameters of the module.
+  Params params = 1 [
+    (gogoproto.nullable) = false,
+    (amino.dont_omitempty) = true
+  ];
+}
