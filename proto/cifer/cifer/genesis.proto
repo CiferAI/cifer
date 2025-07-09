@@ -1,0 +1,17 @@
+syntax = "proto3";
+package cifer.cifer;
+
+import "amino/amino.proto";
+import "gogoproto/gogo.proto";
+import "cifer/cifer/params.proto";
+
+option go_package = "cifer/x/cifer/types";
+
+// GenesisState defines the cifer module's genesis state.
+message GenesisState {
+  // params defines all the parameters of the module.
+  Params params = 1 [
+    (gogoproto.nullable) = false,
+    (amino.dont_omitempty) = true
+  ];
+}

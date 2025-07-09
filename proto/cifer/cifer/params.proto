@@ -1,0 +1,15 @@
+syntax = "proto3";
+package cifer.cifer;
+
+import "amino/amino.proto";
+import "gogoproto/gogo.proto";
+
+option go_package = "cifer/x/cifer/types";
+
+// Params defines the parameters for the module.
+message Params {
+  option (amino.name) = "cifer/x/cifer/Params";
+  option (gogoproto.equal) = true;
+
+  
+}
